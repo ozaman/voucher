@@ -1,0 +1,1 @@
+<img src="http://t-booking.com/data/img/vc/<?=$_GET[pic];?>.jpg"   />
