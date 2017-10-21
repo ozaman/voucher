@@ -210,7 +210,7 @@ div { text-transform:capitalize;}
 				  <script>
 var elem = document.getElementById("load_data_chat");
 if (elem.requestFullscreen) {
-  elem.requestFullscreen();
+ // elem.requestFullscreen();
 }
  
 				  addEventListener("clicks", function() {

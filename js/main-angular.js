@@ -36,19 +36,25 @@ var app = angular.module('myApp', ['ngCookies','ngRoute','angular.filter','base6
         $scope.costsum;
         $scope.latituderel = '';
         $scope.longituderel = '';
-        var sv = $location.search().sv; 
-        console.log(sv)
+
+        /* code 64 */
+        // var sv = $location.search().sv; 
+        // console.log(sv)
         
-        var absUrl = $location.absUrl().split("?");
+        // var absUrl = $location.absUrl().split("?");
        
-        console.log(absUrl[1])
+        // console.log(absUrl[1])
         
-            $scope.decoded = $base64.decode(absUrl[1]);
-            $scope.decoded.split("=");
+        //     $scope.decoded = $base64.decode(absUrl[1]);
+        //     $scope.decoded.split("=");
+
+
+
+
             //console.log($scope.decoded)
             //console.log($scope.decoded.split('&'))
             //console.log($scope.decoded.split('&')[0].split('=')[1])
-
+             
 
         $http({
                     method : 'POST',
@@ -211,8 +217,12 @@ var app = angular.module('myApp', ['ngCookies','ngRoute','angular.filter','base6
         //     var topscroll = e.target.scrollTop;//
                 
         // });
-        $scope.data = $scope.decoded.split('&')[0].split('=')[1];//JSON.parse($location.search().order);
-        $scope.dataSV = $scope.decoded.split('&')[1].split('=')[1];
+        // order=372346&sv=th
+        // $location.search().order
+        //$scope.data = $scope.decoded.split('&')[0].split('=')[1];//JSON.parse($location.search().order);
+       // $scope.dataSV = $scope.decoded.split('&')[1].split('=')[1];
+        $scope.data = $location.search().order;//JSON.parse($location.search().order);
+       $scope.dataSV = $location.search().sv;
         if ($scope.dataSV != 'th' && $scope.dataSV != 'cn') {
             angular.element(document.querySelector('.not-data')).css('display','block');
             angular.element(document.querySelector('.loader')).css('display','none');
@@ -225,6 +235,74 @@ var app = angular.module('myApp', ['ngCookies','ngRoute','angular.filter','base6
         console.log($scope.data)
         console.log($scope.decoded)
         $scope.selecetdataorde = $scope.data;
+        
+
+
+
+
+        /********************************/
+          /* get book agent for regis */
+        /********************************/
+
+        $http({
+            method : 'POST',
+            url : "php/voucher.php",
+            data: $.param({id: $scope.VOUCHER,sv: $scope.dataSV}),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).success(function(res){
+               console.log(res)
+               
+                console.log(res[0].invoice)
+                // $scope.country_id = res[0].country_id;
+                // $scope.agent_ref = res[0].agent_ref;
+                // $scope.id = res[0].id;
+                // $scope.code = res[0].code;
+                // $scope.agent = res[0].agent;
+                // $scope.tb_web_book_agent_id = res[0].tb_web_book_agent_id;
+                // $scope.tb_web_book_agent_email = res[0].tb_web_book_agent_email;
+                // $scope.tb_web_book_agent_email2 = res[0].tb_web_book_agent_email2;
+                console.log($scope.country_id)
+                console.log($scope.agent_ref)
+                console.log($scope.id)
+                console.log($scope.code)
+                console.log($scope.agent)
+                console.log($scope.tb_web_book_agent_id)
+                console.log($scope.tb_web_book_agent_email)
+                console.log($scope.tb_web_book_agent_email2)
+                
+
+                /* get book agent */
+
+                $http({
+                    method : 'POST',
+                    url : "php/getbookagent.php",
+                    data: $.param({id: $scope.tb_web_book_agent_id,sv: $scope.dataSV}),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    }).success(function(res){
+                        console.log(res)
+
+                        // $scope.countryCode = res[0].country_code;
+                        // $scope.guestEmail = res[0].guestemail;
+                        // $scope.guestEmail2 = res[0].guestemail2; 
+                        // $scope.web_country_name_en = res[0].name_en;
+                        console.log($scope.countryCode)
+                        console.log($scope.guestEmail)
+                        console.log($scope.guestEmail2)
+                        console.log($scope.web_country_name_en)
+                        
+                });
+
+
+                                                
+              });
+
+
+
+$scope.booknew = function() {
+   $window.location.href = "https://www.welovetaxi.com/app/booking/register";
+}
+
+
         geolocation.getLocation().then(function(data){
             $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
             $scope.latituderel = $scope.coords.lat;
@@ -553,18 +631,18 @@ var app = angular.module('myApp', ['ngCookies','ngRoute','angular.filter','base6
         //*********************FULLSCREEN***********************//
         //******************************************************//
         
-        function goFullscreen() {
-            if (Fullscreen.isEnabled())
-                Fullscreen.cancel();
-            else
-                Fullscreen.all();
-        }
+        // function goFullscreen() {
+        //     if (Fullscreen.isEnabled())
+        //         Fullscreen.cancel();
+        //     else
+        //         Fullscreen.all();
+        // }
 
-        $scope.isFullScreen = false;
+        // $scope.isFullScreen = false;
 
-        $scope.goFullScreenViaWatcher = function() {
-                  $scope.isFullScreen = !$scope.isFullScreen;
-        }
+        // $scope.goFullScreenViaWatcher = function() {
+        //           $scope.isFullScreen = !$scope.isFullScreen;
+        // }
         $scope.datetoday = new Date(); 
         var tick = function() {
           $scope.clock = Date.now();
@@ -1139,7 +1217,7 @@ var app = angular.module('myApp', ['ngCookies','ngRoute','angular.filter','base6
                 //$scope.bobymain = { 'display':'block'};
                 angular.element(document.querySelector('.bobymain')).css("display","block");
 
-                 goFullscreen();
+                 //goFullscreen();
                 $scope.VoucherSelect = $scope.Voucherwait;
                 $scope.numVocherpass1 = $scope.voucherselect.length;
                 $scope.numVocherpass2 = $scope.Voucherpass.length;
@@ -1159,6 +1237,10 @@ var app = angular.module('myApp', ['ngCookies','ngRoute','angular.filter','base6
                 }
                 if($scope.flagcheck == 3){
                     $scope.Typetext = "所有"+' '+'('+$scope.voucherselect.length+')'+' '+'/'+' '+"等待使用"+' '+'('+$scope.Voucherwait.length+')';
+                }
+                if ($scope.flagcheck == undefined) {
+                    $scope.Typetext = "All"+' '+'('+$scope.voucherselect.length+')'+' '+'/'+' '+"Unused"+' '+'('+$scope.Voucherwait.length+')';
+
                 }
                 }
                 
@@ -5954,6 +6036,10 @@ $scope.doubleClick = function(){
                 if($scope.flagcheck == 3){
                     $scope.Typetext = "所有"+' '+'('+$scope.voucherselect.length+')';
                 }
+                 if ($scope.flagcheck == undefined) {
+                    $scope.Typetext = "All"+' '+'('+$scope.voucherselect.length+')'+' '+'/'+' '+"Unused"+' '+'('+$scope.Voucherwait.length+')';
+                  
+                }
         
 
             }
@@ -5967,6 +6053,10 @@ $scope.doubleClick = function(){
                 if($scope.flagcheck == 3){
                     $scope.Typetext = "所有"+' '+'('+$scope.voucherselect.length+')'+' '+'/'+' '+"已经使用" +' '+'('+$scope.Voucherpass.length+')';
                 }
+                 if ($scope.flagcheck == undefined) {
+                    $scope.Typetext = "All"+' '+'('+$scope.voucherselect.length+')'+' '+'/'+' '+"Unused"+' '+'('+$scope.Voucherwait.length+')';
+                  
+                }
 
             }
             if ($scope.numflag==3) {
@@ -5978,6 +6068,10 @@ $scope.doubleClick = function(){
                 }
                 if($scope.flagcheck == 3){
                     $scope.Typetext = "所有"+' '+'('+$scope.voucherselect.length+')'+' '+'/'+' '+"等待使用"+' '+'('+$scope.Voucherwait.length+')';
+                }
+                 if ($scope.flagcheck == undefined) {
+                    $scope.Typetext = "All"+' '+'('+$scope.voucherselect.length+')'+' '+'/'+' '+"Unused"+' '+'('+$scope.Voucherwait.length+')';
+                  
                 }
           
 
@@ -5992,6 +6086,10 @@ $scope.doubleClick = function(){
                 if($scope.flagcheck == 3){
                     $scope.Typetext = "所有"+' '+'('+$scope.voucherselect.length+')'+' '+'/'+' '+"已取消"+' '+'('+$scope.Vouchercancel.length+')';
                 }
+                 if ($scope.flagcheck == undefined) {
+                    $scope.Typetext = "All"+' '+'('+$scope.voucherselect.length+')'+' '+'/'+' '+"Unused"+' '+'('+$scope.Voucherwait.length+')';
+                  
+                }
                 
                
 
@@ -6005,6 +6103,10 @@ $scope.doubleClick = function(){
                 }
                 if($scope.flagcheck == 3){
                     $scope.Typetext = "所有"+' '+'('+$scope.voucherselect.length+')'+' '+'/'+' '+"已拒绝"+' '+'('+$scope.Voucherrej.length+')';
+                }
+                 if ($scope.flagcheck == undefined) {
+                    $scope.Typetext = "All"+' '+'('+$scope.voucherselect.length+')'+' '+'/'+' '+"Unused"+' '+'('+$scope.Voucherwait.length+')';
+                  
                 }
             }
             

@@ -54,7 +54,22 @@
          
 		</table>
 	</div>
-	<div style="padding: 3px 18px;text-shadow: none;margin-top: 30px;width: 100%;    font-size: 17px !important"> 
+	<div style="padding: 0 10px;    margin-top: 40px;">
+		<div style="border: 2px solid #3b5998;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 5px;
+    margin-bottom: 9px;
+    padding: 8px 18px;
+    text-shadow: none;
+    margin-top: 30px;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    background: #3b5998;
+    font-size: 17px !important;" ng-click="booknew()">Book New</div>
+</div>
+	<div style="padding: 3px 18px;text-shadow: none;width: 100%;    font-size: 17px !important"> 
 		<table width="100%">
 			<tr>
 				<td colspan="2" style="" align="center">

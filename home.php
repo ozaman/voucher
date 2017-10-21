@@ -68,6 +68,7 @@
          
 		</table>
 	</div>
+	<div>Book New</div>
 	<div style="padding: 3px 18px;text-shadow: none;margin-top: 55px;width: 100%"> 
 		<table width="100%">
 			<tr>

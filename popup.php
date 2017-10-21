@@ -8151,8 +8151,8 @@ Please be noticed the other fees are not responsible for refund..</span>
 			                                    <span ng-bind="web_driver_phone"></span>
 			                            </td>
 			                            <td width="10"></td>
-			                            <td>
-			                                <span><a href="tel:{{web_driver_phone}}"><img src="images/phone.png" width="25"></a></span>
+			                            <td align="center">
+			                                <span align="center"><a href="tel:{{web_driver_phone}}"><img src="images/phone.png" width="25"></a></span>
 			                            </td>
 			                            <td width="10"></td>
 
