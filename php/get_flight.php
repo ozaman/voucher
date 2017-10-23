@@ -20,9 +20,9 @@ if ($conn->connect_error) {
 $voucher = $_POST[voucher];
  
 
-$sql = "SELECT all_message.* , tb_web_book_agent.guest FROM all_message  
-LEFT JOIN ".$dbname.".web_book_agent as tb_web_book_agent ON all_message.orderid = ".$dbname.".tb_web_book_agent.id
-WHERE voucher  ='".$voucher."' ORDER BY all_message.id DESC ";
+$sql = "SELECT all_chat.* , tb_web_book_agent.guest FROM all_chat  
+LEFT JOIN ".$dbname.".web_book_agent as tb_web_book_agent ON all_chat.orderid = ".$dbname.".tb_web_book_agent.id
+WHERE voucher  ='".$voucher."' ORDER BY all_chat.id DESC ";
 $rows = array();
 $result = $conn2->query($sql);
 
